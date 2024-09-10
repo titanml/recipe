@@ -1,0 +1,31 @@
+services:
+  takeoff:
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities:
+            - gpu
+            count: all
+            driver: nvidia
+    environment:
+    - TAKEOFF_ACCESS_TOKEN=${HF_ACCESS_TOKEN}
+    - LICENSE_KEY=${LICENSE_KEY}
+    - TAKEOFF_CONSUMER_GROUP=generate
+    extra_hosts:
+    - host.docker.internal:host-gateway
+    image: tytn/takeoff-pro:0.17.0-gpu
+    ports:
+    - 3000:3000
+    - 3001:3001
+    - 3002:3002
+    - 3003:3003
+    - 9090:9090
+    - 13122:13122
+    shm_size: 2G
+    volumes:
+    - ~/.takeoff_cache/:/code/models
+    - ${PWD}/devops/test_cache.json:/code/ssd_cache.json
+    - ${PWD}/${TASK}/config.yaml:/code/config.yaml
+    env_file:
+    - .env

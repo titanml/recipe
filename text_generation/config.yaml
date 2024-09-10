@@ -1,0 +1,11 @@
+takeoff:
+  readers_config:
+    reader1:
+      consumer_group: generate
+      device: cuda
+      license_key: '${LICENSE_KEY}'
+      max_batch_size: 1
+      max_sequence_length: 2048
+      model_name: TitanML/Meta-Llama-3-8B-Instruct-AWQ-4bit
+      takeoff_access_token: '${TAKEOFF_ACCESS_TOKEN}'
+  server_config: {}
